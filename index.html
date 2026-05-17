@@ -80,8 +80,9 @@
 
     html, body {
       width: 100%;
-      height: 100%;
-      overflow: hidden;
+      min-height: 100%;
+      overflow-x: hidden;
+      overflow-y: auto;
     }
 
     body {
@@ -95,10 +96,10 @@
 
     .shell {
       width: 100%;
-      height: 100vh;
+      min-height: 100vh;
       display: grid;
       grid-template-columns: 78px 1fr;
-      overflow: hidden;
+      overflow: visible;
     }
 
     .sidebar {
@@ -151,12 +152,12 @@
 
     .main {
       min-width: 0;
-      height: 100vh;
+      min-height: 100vh;
       padding: 10px 12px 12px;
       display: grid;
       grid-template-rows: auto auto 1fr;
       gap: 8px;
-      overflow: hidden;
+      overflow: visible;
     }
 
     .topbar {
@@ -269,7 +270,7 @@
 
     .page {
       min-height: 0;
-      overflow: hidden;
+      overflow: visible;
       display: none;
     }
 
@@ -277,7 +278,6 @@
 
     .panel {
       width: 100%;
-      height: 100%;
       min-height: 0;
       background: var(--surface);
       border: 1px solid var(--line);
@@ -312,8 +312,8 @@
 
     .panel-body {
       min-height: 0;
-      overflow: hidden;
-      padding: 9px 10px 10px;
+      overflow: visible;
+      padding: 9px 10px 12px;
     }
 
     .pill {
@@ -347,148 +347,237 @@
     .status-dot.error { background: var(--danger); }
 
     .campaign-grid {
-      height: 100%;
       display: grid;
-      grid-template-columns: repeat(7, minmax(0, 1fr));
-      grid-template-rows: repeat(2, minmax(0, 1fr));
-      gap: 9px;
+      grid-template-columns: 1fr;
+      align-content: start;
+      gap: 10px;
+      overflow: visible;
+      padding-right: 0;
+      padding-bottom: 6px;
+    }
+
+    .campaign-grid::-webkit-scrollbar { width: 7px; }
+    .campaign-grid::-webkit-scrollbar-thumb {
+      background: rgba(100, 116, 139, .35);
+      border-radius: 999px;
+    }
+
+    .campaign-group {
+      min-width: 0;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: var(--surface-2);
+      box-shadow: var(--soft-shadow);
       overflow: hidden;
     }
 
-    .campaign-card {
+    .campaign-group-head {
+      min-height: 38px;
+      padding: 9px 11px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      background: var(--blue-soft);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .campaign-group-title {
+      color: var(--blue-text);
+      font-size: 12px;
+      font-weight: 950;
+      text-transform: uppercase;
+      letter-spacing: .02em;
+    }
+
+    .campaign-group-count {
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .campaign-row {
       min-width: 0;
       min-height: 0;
-      padding: 12px 10px;
-      border-radius: 15px;
-      background: var(--surface-2);
-      border: 1px solid var(--line);
-      box-shadow: var(--soft-shadow);
+      padding: 7px 10px;
+      background: var(--surface);
       display: grid;
-      grid-template-rows: 1fr auto auto;
-      gap: 8px;
-      overflow: hidden;
+      grid-template-columns: 42px minmax(0, 1fr) 306px;
+      align-items: center;
+      gap: 9px;
+      overflow: visible;
       transition: .18s ease;
     }
 
-    .campaign-card:hover {
-      background: var(--surface);
-      border-color: var(--orange);
-      transform: translateY(-1px);
-      box-shadow: var(--shadow);
+    .campaign-row + .campaign-row {
+      border-top: 1px solid var(--line);
+    }
+
+    .campaign-row:hover {
+      background: var(--orange-soft);
+    }
+
+    .campaign-row-number {
+      width: 34px;
+      height: 30px;
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      background: var(--surface-2);
+      border: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 950;
     }
 
     .campaign-message {
+      min-width: 0;
       color: var(--text);
-      font-size: clamp(13.5px, 0.78vw, 16px);
-      line-height: 1.3;
+      font-size: clamp(12.5px, 0.74vw, 14px);
+      line-height: 1.25;
       font-weight: 850;
       letter-spacing: -.015em;
       overflow: hidden;
       display: flex;
       align-items: center;
-      justify-content: center;
-      text-align: center;
-      min-height: 0;
+      justify-content: flex-start;
+      text-align: left;
     }
 
     .campaign-message span {
-      display: -webkit-box;
-      -webkit-line-clamp: 4;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
+      display: block;
+      overflow: visible;
     }
 
-    .stats-row {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 6px;
+    .campaign-actions-inline {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 8px;
+      width: 100%;
+      flex-wrap: nowrap;
     }
 
-    .stat-mini {
+    .action-unit {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
       min-width: 0;
-      padding: 5px 6px;
-      border-radius: 11px;
-      background: var(--surface);
-      border: 1px solid var(--line);
     }
 
-    .stat-mini strong {
-      display: block;
-      font-size: 17px;
-      line-height: 1;
-      letter-spacing: -.07em;
-    }
-
-    .stat-mini span {
-      display: block;
-      margin-top: 4px;
-      color: var(--muted);
-      font-size: 8px;
+    .campaign-count-badge {
+      min-width: 38px;
+      height: 32px;
+      padding: 0 8px;
+      border-radius: 10px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
       font-weight: 950;
-      letter-spacing: .035em;
-      text-transform: uppercase;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      line-height: 1;
+      letter-spacing: -.04em;
+      border: 1px solid var(--line);
+      background: var(--surface-2);
+      color: var(--text);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.04);
+    }
+
+    .campaign-count-badge.lead {
+      background: var(--blue-soft);
+      color: var(--blue-text);
+      border-color: rgba(37, 99, 235, .18);
+    }
+
+    .campaign-count-badge.semgrad {
+      background: var(--orange-soft);
+      color: var(--orange-text);
+      border-color: rgba(249, 115, 22, .18);
+    }
+
+    .action-btn-inline {
+      min-height: 32px;
+      min-width: 50px;
+      padding: 4px 10px;
+      border-radius: 10px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      line-height: 1;
+      font-weight: 950;
       white-space: nowrap;
     }
 
-    .stat-mini.camp strong { color: var(--green); }
-    .stat-mini.semgrad strong { color: var(--yellow-text); }
-    body.dark-mode .stat-mini.camp strong,
-    body.dark-mode .stat-mini.semgrad strong { color: var(--yellow); }
-
-    .symbol-actions {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 6px;
-    }
-
-    .symbol-btn {
-      min-height: 34px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 12px;
-      font-size: 16px;
-      font-weight: 950;
-      line-height: 1;
-    }
-
-    .symbol-lead {
+    .action-btn-inline.lead {
       background: var(--green);
       color: #fff;
     }
 
-    .symbol-semgrad {
+    .action-btn-inline.semgrad {
       background: var(--yellow);
       color: #713f12;
-      font-size: 18px;
     }
 
-    body.dark-mode .symbol-lead {
+    .action-btn-inline.undo {
+      background: var(--surface);
+      color: var(--orange-text);
+      border: 1px solid var(--orange-soft);
+      min-width: 82px;
+    }
+
+    .action-btn-inline.undo:hover {
+      border-color: var(--orange);
+      background: var(--orange-soft);
+    }
+
+    body.dark-mode .campaign-group-head {
+      background: rgba(255,255,255,.08);
+    }
+
+    body.dark-mode .campaign-group-title {
+      color: #fff;
+    }
+
+    body.dark-mode .campaign-row:hover {
+      background: rgba(249, 115, 22, .16);
+    }
+
+    body.dark-mode .campaign-row-number {
+      background: rgba(255,255,255,.08);
+    }
+
+    body.dark-mode .campaign-count-badge {
+      background: rgba(255,255,255,.08);
+      color: #fff;
+      border-color: rgba(255,255,255,.14);
+    }
+
+    body.dark-mode .campaign-count-badge.lead {
+      background: rgba(255,255,255,.16);
+      color: #fff;
+    }
+
+    body.dark-mode .campaign-count-badge.semgrad {
+      background: rgba(249, 115, 22, .18);
+      color: #fed7aa;
+    }
+
+    body.dark-mode .action-btn-inline.lead {
       background: #fff;
       color: var(--blue-dark);
     }
 
-    body.dark-mode .symbol-semgrad {
+    body.dark-mode .action-btn-inline.semgrad {
       background: var(--yellow);
       color: #713f12;
     }
 
-    .btn-undo-card {
-      width: 100%;
-      padding: 8px 8px;
-      background: var(--surface);
-      color: var(--text);
-      border: 1px solid var(--line);
-      font-size: 11px;
-      border-radius: 12px;
-    }
-
-    .btn-undo-card:hover {
-      background: var(--blue-soft);
-      color: var(--blue-text);
-      border-color: var(--blue);
+    body.dark-mode .action-btn-inline.undo {
+      background: rgba(255,255,255,.08);
+      color: #fff;
+      border-color: rgba(255,255,255,.18);
     }
 
     .rankings-page {
@@ -798,11 +887,10 @@
 
     @media (max-width: 1500px) {
       .campaign-grid {
-        grid-template-columns: repeat(5, minmax(0, 1fr));
-        grid-template-rows: repeat(3, minmax(0, 1fr));
+        grid-template-columns: 1fr;
       }
 
-      .campaign-message { font-size: 13.5px; }
+      .campaign-message { font-size: 12.5px; }
       button {
         padding: 7px 8px;
         font-size: 11px;
@@ -845,11 +933,13 @@
 
       .campaign-grid {
         height: auto;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-columns: 1fr;
         grid-template-rows: none;
+        overflow: visible;
+        padding-right: 0;
       }
 
-      .campaign-card { min-height: 178px; }
+      .campaign-row { min-height: 0; }
 
       .rankings-page {
         height: auto;
@@ -861,6 +951,22 @@
     }
 
     @media (max-width: 720px) {
+      .campaign-row {
+        grid-template-columns: 32px minmax(0, 1fr);
+        align-items: start;
+      }
+
+      .campaign-actions-inline {
+        grid-column: 1 / -1;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+      }
+
+      .campaign-row-number {
+        width: 30px;
+        height: 28px;
+      }
+
       .topbar,
       .actions {
         align-items: stretch;
@@ -892,7 +998,7 @@
       <header class="topbar">
         <div class="title-wrap">
           <h1>Contador de Leads por Campanha</h1>
-          <div class="subtitle">+1 = lead respondeu, bola amarela = sem graduação.</div>
+          <div class="subtitle">+1 = clique normal, Sem = não tem graduação, Desfazer = corrigir lançamento por campanha. Lista completa com antigas + novas.</div>
         </div>
         <div class="actions">
           <button class="btn-soft" onclick="alternarTema()" id="themeButton">Modo escuro</button>
@@ -909,7 +1015,7 @@
           <div class="panel-head">
             <div>
               <div class="panel-title">Classificar por campanha</div>
-              <div class="panel-subtitle">Clique direto no símbolo. O botão Desfazer pergunta qual modalidade remover.</div>
+              <div class="panel-subtitle">Campanhas organizadas por categoria. Mantidas as campanhas antigas e as novas adicionadas, com ações na mesma linha para registrar ou corrigir lançamentos.</div>
             </div>
             <span class="pill" id="connectionStatus"><span class="status-dot"></span>Conectando</span>
           </div>
@@ -932,7 +1038,7 @@
             <div class="legend">
               <div class="legend-title">Significado dos símbolos</div>
               <div class="legend-items">
-                <span class="legend-item"><span class="legend-symbol plus">+1</span> Lead respondeu</span>
+                <span class="legend-item"><span class="legend-symbol plus">+1</span> Clique normal</span>
                 <span class="legend-item"><span class="legend-symbol dot">●</span> Sem graduação</span>
               </div>
             </div>
@@ -956,11 +1062,11 @@
 
   <div class="modal-overlay" id="modalDesfazer">
     <div class="modal-box">
-      <h2 class="modal-title">Desfazer qual modalidade?</h2>
+      <h2 class="modal-title">O que você deseja desfazer?</h2>
       <div class="modal-message" id="modalDesfazerText"></div>
       <div class="modal-actions">
-        <button class="btn-modal-lead" onclick="confirmarDesfazerModal('campanha')">+1 Lead respondeu</button>
-        <button class="btn-modal-semgrad" onclick="confirmarDesfazerModal('semGraduacao')">● Sem graduação</button>
+        <button class="btn-modal-lead" onclick="confirmarDesfazerModal('campanha')">Normal (+1)</button>
+        <button class="btn-modal-semgrad" onclick="confirmarDesfazerModal('semGraduacao')">Sem graduação</button>
         <button class="btn-modal-cancel" onclick="fecharModalDesfazer()">Cancelar</button>
       </div>
     </div>
@@ -1002,6 +1108,11 @@
       { id: 'principal-pedagogia', nome: '[VENDAS] - [CAMPANHA PRINCIPAL] 30/12 - Anúncio 3 - imagem 3', mensagem: 'Olá, gostaria de saber mais sobre o curso de Pedagogia' },
       { id: 'graduacao-pedagogia-inicio', nome: '[GRADUAÇÃO EM PEDAGOGIA] - Interesse inicial', mensagem: 'Olá, tenho interesse em iniciar minha graduação em Pedagogia.' },
       { id: 'interesse-informacoes-geral', nome: '[CAMPANHA GERAL] - Mais informações', mensagem: 'Olá! Tenho interesse e queria mais informações, por favor.' },
+      { id: 'segunda-graduacao-mec', nome: '[2ª GRADUAÇÃO] - Reconhecida pelo MEC', mensagem: 'Oi, quero saber mais sobre a 2ª graduação reconhecida pelo MEC.' },
+      { id: 'segunda-graduacao-opcoes-unifahe', nome: '[2ª GRADUAÇÃO] - Opções UNIFAHE', mensagem: 'Olá! Quero conhecer as opções de 2ª graduação da UNIFAHE.' },
+      { id: 'combo-segunda-graduacao', nome: '[2ª GRADUAÇÃO] - Combo', mensagem: 'Olá, quero informações sobre o combo de 2ª graduação' },
+      { id: 'tecnico-interesse-cursos', nome: '[TÉCNICO] - Interesse em cursos', mensagem: 'Oi! Tenho interesse nos cursos para quem já é técnico e gostaria de saber mais.' },
+      { id: 'tecnico-para-tecnologo-info', nome: '[TÉCNICO PARA TECNÓLOGO] - Informações', mensagem: 'Olá, quero informações sobre os cursos de Técnico para Tecnólogo.' },
       { id: 'tecnico-tecnologo', nome: '[TÉCNICO PARA TECNÓLOGO] - 07/05', mensagem: 'Olá, quero informações sobre os cursos de tecnólogo.' },
       { id: 'campanha-site', nome: 'CAMPANHA SITE', mensagem: 'Campanha Site' },
       { id: 'secretaria', nome: 'SECRETARIA', mensagem: 'Secretaria' }
@@ -1093,8 +1204,8 @@
         await runTransaction(contadorRef, (valorAtual) => Number(valorAtual || 0) + 1);
 
         const label = tipo === "campanha"
-          ? "+1 lead respondeu"
-          : "● sem graduação";
+          ? "Normal (+1)"
+          : "Sem graduação";
 
         mostrarToast(`${label}: ${campanha.mensagem}`);
       } catch (error) {
@@ -1108,7 +1219,7 @@
       if (!campanha) return;
 
       campanhaParaDesfazer = campanha;
-      document.getElementById("modalDesfazerText").textContent = campanha.mensagem;
+      document.getElementById("modalDesfazerText").textContent = `Escolha se deseja desfazer o normal ou sem graduação desta campanha: ${campanha.mensagem}`;
       document.getElementById("modalDesfazer").classList.add("show");
     };
 
@@ -1150,8 +1261,8 @@
         });
 
         const label = tipo === "campanha"
-          ? "+1 lead respondeu"
-          : "● sem graduação";
+          ? "Normal (+1)"
+          : "Sem graduação";
 
         mostrarToast(`Desfeito: ${label} - ${campanha.mensagem}`);
       } catch (error) {
@@ -1199,36 +1310,86 @@
       `;
     }
 
+    function getCategoriaCampanha(campanha) {
+      const texto = `${campanha.nome} ${campanha.mensagem}`.toLowerCase();
+
+      if (
+        texto.includes('técnico') ||
+        texto.includes('tecnico') ||
+        texto.includes('tecnólogo') ||
+        texto.includes('tecnologo')
+      ) {
+        return 'Técnico para Tecnólogo';
+      }
+
+      if (
+        texto.includes('2ª graduação') ||
+        texto.includes('2ª graduacao') ||
+        texto.includes('segunda graduação') ||
+        texto.includes('segunda graduacao')
+      ) {
+        return '2ª Graduação';
+      }
+
+      if (texto.includes('pedagogia')) {
+        return 'Pedagogia';
+      }
+
+      return 'Outras campanhas';
+    }
+
+    function formatarNumero(numero) {
+      return String(numero).padStart(2, '0');
+    }
+
     function renderizarCampanhas() {
       const grid = document.getElementById('campaignGrid');
+      const ordemCategorias = ['2ª Graduação', 'Técnico para Tecnólogo', 'Pedagogia', 'Outras campanhas'];
+      const grupos = ordemCategorias.reduce((acc, categoria) => {
+        acc[categoria] = [];
+        return acc;
+      }, {});
 
-      grid.innerHTML = campanhas.map(campanha => {
-        const item = contagemAtual[campanha.id] || { campanha: 0, semGraduacao: 0 };
+      campanhas.forEach((campanha, index) => {
+        const categoria = getCategoriaCampanha(campanha);
+        grupos[categoria].push({ ...campanha, numero: index + 1 });
+      });
 
-        return `
-          <div class="campaign-card">
-            <div class="campaign-message"><span>${campanha.mensagem}</span></div>
+      grid.innerHTML = ordemCategorias
+        .filter(categoria => grupos[categoria].length > 0)
+        .map(categoria => {
+          const linhas = grupos[categoria].map(campanha => {
+            const item = contagemAtual[campanha.id] || { campanha: 0, semGraduacao: 0 };
 
-            <div class="stats-row">
-              <div class="stat-mini camp">
-                <strong>${item.campanha || 0}</strong>
-                <span>+1</span>
+            return `
+              <div class="campaign-row">
+                <div class="campaign-row-number">${formatarNumero(campanha.numero)}</div>
+                <div class="campaign-message"><span>${campanha.mensagem}</span></div>
+                <div class="campaign-actions-inline">
+                  <div class="action-unit">
+                    <div class="campaign-count-badge lead" title="Total de cliques normais">${item.campanha || 0}</div>
+                    <button class="action-btn-inline lead" onclick="registrarClassificacao('${campanha.id}', 'campanha')" title="Registrar clique normal">+1</button>
+                  </div>
+                  <div class="action-unit">
+                    <div class="campaign-count-badge semgrad" title="Total sem graduação">${item.semGraduacao || 0}</div>
+                    <button class="action-btn-inline semgrad" onclick="registrarClassificacao('${campanha.id}', 'semGraduacao')" title="Registrar sem graduação">Sem</button>
+                  </div>
+                  <button class="action-btn-inline undo" onclick="abrirDesfazer('${campanha.id}')" title="Desfazer lançamento">Desfazer</button>
+                </div>
               </div>
-              <div class="stat-mini semgrad">
-                <strong>${item.semGraduacao || 0}</strong>
-                <span>●</span>
+            `;
+          }).join('');
+
+          return `
+            <section class="campaign-group">
+              <div class="campaign-group-head">
+                <div class="campaign-group-title">${categoria}</div>
+                <div class="campaign-group-count">${grupos[categoria].length} campanhas</div>
               </div>
-            </div>
-
-            <div class="symbol-actions">
-              <button class="symbol-btn symbol-lead" onclick="registrarClassificacao('${campanha.id}', 'campanha')">+1</button>
-              <button class="symbol-btn symbol-semgrad" onclick="registrarClassificacao('${campanha.id}', 'semGraduacao')">●</button>
-            </div>
-
-            <button class="btn-undo-card" onclick="abrirDesfazer('${campanha.id}')">Desfazer</button>
-          </div>
-        `;
-      }).join('');
+              ${linhas}
+            </section>
+          `;
+        }).join('');
     }
 
     function getRanking(tipo) {
@@ -1306,14 +1467,14 @@
     window.copiarResumo = function() {
       const linhas = campanhas.map(c => {
         const item = contagemAtual[c.id] || { campanha: 0, semGraduacao: 0 };
-        return `${c.mensagem}: ${item.campanha || 0} respondeu | ${item.semGraduacao || 0} sem graduação`;
+        return `${c.mensagem}: ${item.campanha || 0} normal | ${item.semGraduacao || 0} sem graduação`;
       });
       navigator.clipboard.writeText(linhas.join('\n'));
       alert('Resumo copiado.');
     };
 
     window.exportarCSV = function() {
-      const linhas = [['Mensagem', 'Lead respondeu', 'Nao tem graduacao']];
+      const linhas = [['Mensagem', 'Normal', 'Nao tem graduacao']];
 
       campanhas.forEach(c => {
         const item = contagemAtual[c.id] || { campanha: 0, semGraduacao: 0 };
